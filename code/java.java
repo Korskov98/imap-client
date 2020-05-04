@@ -13,7 +13,7 @@ public class Mail{
 	   lines.clear();
         do {
             String line = from.readLine();
-		 lines.add(line);
+	    lines.add(line);
             System.out.println("received: "+line);
         } while (from.ready());
     }
@@ -53,8 +53,9 @@ public class Mail{
 				case(1):
 					String user_pass = in.nextLine();
 					System.out.println("Input username and password:");
-					user_pass = in.nextLine();							     print(to,"a1 login "+user_pass+"\r\n");
-            		read(from, lines);
+					user_pass = in.nextLine();							     
+					print(to,"a1 login "+user_pass+"\r\n");
+            				read(from, lines);
 				break;
 				case (2):
 					print(to, "1 LIST \"~/Mail\" \"%\"\r\n");	
@@ -108,18 +109,15 @@ public class Mail{
 					}
 					i = 0;
 					while (lines_.get(i).indexOf("OK SEARCH completed") == -1){
-						search_line = lines_.get(i);
-						System.out.println(search_line);
+						search_line = lines_.get(i);						
 						while (search_line.indexOf(" ") != -1){
 							String number_line = search_line.substring(0, search_line.indexOf(" "));
-							search_line = search_line.substring(search_line.indexOf(" ") + 1, search_line.length());
-                            System.out.println(search_line);
+							search_line = search_line.substring(search_line.indexOf(" ") + 1, search_line.length());                           
 							if ((number_line.indexOf("*") == -1) && (number_line.indexOf("SEARCH") == -1)){
 								print(to, "2 FETCH " + number_line + " RFC822.HEADER\r\n");
 								read_not_print(from);
 								read(from, lines);
 							}
-                            System.out.println(number_line);
 						}
                         print(to, "2 FETCH " + search_line + " RFC822.HEADER\r\n");
 						read_not_print(from);
@@ -137,11 +135,9 @@ public class Mail{
 					i = 0;
 					while (lines_.get(i).indexOf("OK SEARCH completed") == -1){
 						search_line = lines_.get(i);
-						System.out.println(search_line);
 						while (search_line.indexOf(" ") != -1){
 							String number_line = search_line.substring(0, search_line.indexOf(" "));
 							search_line = search_line.substring(search_line.indexOf(" ") + 1, search_line.length());
-                            System.out.println(search_line);
 							if ((number_line.indexOf("*") == -1) && (number_line.indexOf("SEARCH") == -1)){
 								print(to, "2 FETCH " + number_line + " BODY[TEXT]\r\n");
 								read_not_print(from);
@@ -150,9 +146,8 @@ public class Mail{
 									read(from, lines);
                      			}
 							}
-                            System.out.println(number_line);
 						}
-                        print(to, "2 FETCH " + search_line + " RFC822.HEADER\r\n");
+                        print(to, "2 FETCH " + search_line + " BODY[TEXT]\r\n");
 						read_not_print(from);
 				        read(from, lines);
 						i = i + 1;
