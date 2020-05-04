@@ -28,7 +28,7 @@ public class Mail{
         String search_line;
         ArrayList <String> lines = new ArrayList<>();
         ArrayList <String> lines_ = new ArrayList<>();
-	      Scanner in = new Scanner(System.in);
+	Scanner in = new Scanner(System.in);
         System.out.print("Input a server: ");
         String server = in.nextLine();
         try{
