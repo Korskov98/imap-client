@@ -148,12 +148,33 @@ public class Mail{
 					String number_line = search_line.substring(0, search_line.indexOf(" "));
 					search_line = search_line.substring(search_line.indexOf(" ") + 1, search_line.length());                           
 					if ((number_line.indexOf("*") == -1) && (number_line.indexOf("SEARCH") == -1)){
-						print(to, "2 FETCH " + number_line + " (FLAGS BODY[HEADER.FIELDS (SUBJECT DATE FROM)])\r\n");
+						print(to, "2 FETCH " + number_line + " (FLAGS BODY.PEEK[HEADER.FIELDS (SUBJECT DATE FROM)])\r\n");
 						read_not_print(from, lines);
-						read(from, lines);
+						lines.clear();
+						do {
+							String line = from.readLine();
+							lines.add(line);
+							if(line.indexOf("From") != -1){
+								name = line.substring(line.indexOf("?") + 9, line.lastIndexOf("?"));
+								Base64.Decoder decoder = Base64.getDecoder();
+								String dStr = new String(decoder.decode(name));
+								messages = line.substring(line.indexOf("<") + 1, line.lastIndexOf(">"));
+								System.out.println("From " + dStr + " " + messages);
+							}	
+							if(line.indexOf("Subject") != -1){
+								name = line.substring(line.indexOf("?") + 9, line.lastIndexOf("?"));
+								Base64.Decoder decoder = Base64.getDecoder();
+								String dStr = new String(decoder.decode(name));
+								System.out.println("From " + dStr);
+							}
+							if(line.indexOf("Date") != -1){
+								name = line.substring(line.indexOf(" ") + 1, line.length());
+								System.out.println("Date " + name);
+							}
+						} while (from.ready());
 					}
 				}
-                        	print(to, "2 FETCH " + search_line + " (FLAGS BODY[HEADER.FIELDS (SUBJECT DATE FROM)])\r\n");
+                        	print(to, "2 FETCH " + search_line + " (FLAGS BODY.PEEK[HEADER.FIELDS (SUBJECT DATE FROM)])\r\n");
 				read_not_print(from, lines);
 				lines.clear();
 				do {
