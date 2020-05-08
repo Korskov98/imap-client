@@ -224,16 +224,23 @@ public class Mail{
 						do {						
 							line_text = from.readLine();
 							lines.add(line_text);
-							if(line_text.indexOf("ALT") != -1){
+							if(line_text.indexOf("-") != -1){
 								end_text = false;
+								if (str_text != ""){
+									Base64.Decoder decoder = Base64.getDecoder();
+									String dStr = new String(decoder.decode(str_text));					
+									System.out.println(dStr+ "\r\n");
+									str_text = "";
+								}	
+							
 							}
-							if ((end_text == true) && (line_text.indexOf("Content") == -1) && (line_text.indexOf("MIME") == -1)){
+							if (end_text == true){
 								if (command < 1){
 									str_text = str_text + line_text;
 								}
 								command = command - 1;
 							}
-							if(line_text.indexOf("text/plain") != -1){
+							if(line_text.indexOf("base64") != -1){
 								end_text = true;
 							}	
 						} while (from.ready());
@@ -244,23 +251,27 @@ public class Mail{
 							do {						
 								line_text = from.readLine();
 								lines.add(line_text);
-								if(line_text.indexOf("ALT") != -1){
+								if(line_text.indexOf("-") != -1){
 									end_text = false;
+									if (str_text != ""){
+										Base64.Decoder decoder = Base64.getDecoder();
+										String dStr = new String(decoder.decode(str_text));					
+										System.out.println(dStr+ "\r\n");
+										str_text = "";
+									}	
+							
 								}
-								if ((end_text == true) && (line_text.indexOf("Content") == -1) && (line_text.indexOf("MIME") == -1)){
+								if (end_text == true){
 									if (command < 1){
 										str_text = str_text + line_text;
 									}
 									command = command - 1;
 								}
-								if(line_text.indexOf("text/plain") != -1){
+								if(line_text.indexOf("base64") != -1){
 									end_text = true;
 								}	
 							} while (from.ready());
                      				}
-						Base64.Decoder decoder = Base64.getDecoder();
-						String dStr = new String(decoder.decode(str_text));
-						System.out.println("Text of letter: "+dStr+ "\r\n");
 					}
 				}
                         	print(to, "2 FETCH " + search_line + " BODY[TEXT]\r\n");
@@ -272,22 +283,25 @@ public class Mail{
 				do {						
 					line_text = from.readLine();
 					lines.add(line_text);
-					if(line_text.indexOf("ALT") != -1){
+					if(line_text.indexOf("-") != -1){
 						end_text = false;
+						if (str_text != ""){
+							Base64.Decoder decoder = Base64.getDecoder();
+							String dStr = new String(decoder.decode(str_text));					
+							System.out.println(dStr+ "\r\n");
+							str_text = "";
+						}								
 					}
-					if ((end_text == true) && (line_text.indexOf("Content") == -1) && (line_text.indexOf("MIME") == -1)){
+					if (end_text == true){
 						if (command < 1){
 							str_text = str_text + line_text;
 						}
 						command = command - 1;
 					}
-					if(line_text.indexOf("text/plain") != -1){
+					if(line_text.indexOf("base64") != -1){
 						end_text = true;
 					}	
 				} while (from.ready());
-				Base64.Decoder decoder = Base64.getDecoder();
-				String dStr = new String(decoder.decode(str_text));
-				System.out.println("Text of letter: "+dStr+ "\r\n");
 				i = i + 1;
 			}
 		break;
@@ -303,16 +317,23 @@ public class Mail{
 			do {						
 				line_text = from.readLine();
 				lines.add(line_text);
-				if(line_text.indexOf("ALT") != -1){
+				if(line_text.indexOf("-") != -1){
 					end_text = false;
+					if (str_text != ""){
+						Base64.Decoder decoder = Base64.getDecoder();
+						String dStr = new String(decoder.decode(str_text));					
+						System.out.println(dStr+ "\r\n");
+						str_text = "";
+					}	
+							
 				}
-				if ((end_text == true) && (line_text.indexOf("Content") == -1) && (line_text.indexOf("MIME") == -1)){
+				if (end_text == true){
 					if (command < 1){
 						str_text = str_text + line_text;
 					}
 					command = command - 1;
 				}
-				if(line_text.indexOf("text/plain") != -1){
+				if(line_text.indexOf("base64") != -1){
 					end_text = true;
 				}	
 			} while (from.ready());
@@ -323,23 +344,26 @@ public class Mail{
 				do {						
 					line_text = from.readLine();
 					lines.add(line_text);
-					if(line_text.indexOf("ALT") != -1){
+					if(line_text.indexOf("-") != -1){
 						end_text = false;
+						if (str_text != ""){
+							Base64.Decoder decoder = Base64.getDecoder();
+							String dStr = new String(decoder.decode(str_text));					
+							System.out.println(dStr+ "\r\n");
+							str_text = "";
+						}
 					}
-					if ((end_text == true) && (line_text.indexOf("Content") == -1) && (line_text.indexOf("MIME") == -1)){
+					if (end_text == true){
 						if (command < 1){
 							str_text = str_text + line_text;
 						}
 						command = command - 1;
 					}
-					if(line_text.indexOf("text/plain") != -1){
+					if(line_text.indexOf("base64") != -1){
 						end_text = true;
 					}	
 				} while (from.ready());
                     	}
-			Base64.Decoder decoder = Base64.getDecoder();
-			String dStr = new String(decoder.decode(str_text));
-			System.out.println("Text of letter: "+dStr+ "\r\n");
 		break;
                 case(7):
 			System.out.println("Enter number of letter\r\n");
